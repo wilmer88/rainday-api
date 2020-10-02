@@ -22,4 +22,4 @@ responce propertys like weather, temp, humidity.
 The last block of code is a event listener targeted on the search button to listen to a click. a variable called 'searchtown' to capture using .val() function
 on the input span on the app. then added the searchtown to a perameter in 'searchWeather function'.
 ![screenshot](./assets/images/atl.png)
-[this is the link to the page]()
+[this is the link to the page](https://wilmer88.github.io/rainday-api/)
