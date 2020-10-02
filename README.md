@@ -2,7 +2,7 @@
 
 This application was created for review for the Georgia tech bootcamp.
 
-This basic weather app works by typing the city the City that was you want look up and press the search button to show that citys weather for that day
+This basic weather app works by typing the City that was you want look up and press the search button to show that citys weather for that day
 theres is no known bugs that occure when using the app
 
 //code talk
@@ -22,3 +22,5 @@ The next function is called searchWeather with a perameter called town. what tha
 //lines 25-31
   The last block of code is a event listener  targeted on the  search button to listen to a click. a variable called 'searchtown' to capture using .val() function
   on the input span on the app. then added the searchtown to a perameter in 'searchWeather function'.
+![screenshot](./assets/images/atl.png)
+[this is the link to the page]()
