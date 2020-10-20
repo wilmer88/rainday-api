@@ -3,7 +3,7 @@ $(document).ready(function () {
 
   function searchWeather(town) {
     var queryURL =
-      "http://api.openweathermap.org/data/2.5/weather?q=" +
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
       town +
       "&appid=" +
       APIkey +
