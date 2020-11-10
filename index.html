@@ -12,12 +12,18 @@
     <title>rainday</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
-    <div class="container">
+    <div id="color" class="container">
       <div class="row">
         <div class="col-sm-3">
+          <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-4">Welcome to Weather App</h1>
+              <p class="lead">search a city in the input:)</p>
+            </div>
+          </div>
           <input
             id="searchCity"
             class="form-control mr-sm-2"
@@ -36,7 +42,8 @@
         <div class="col-sm-9">
           <div class="row">
             <div class="col-sm-12">
-              <h3 class="myCity"><strong>Searched A City</strong></h3>
+              <h3 class="myCity"><strong>Searched City</strong></h3>
+              <p id="currentDay" class="lead"></p>
               <p id="date"></p>
               <h6 class="temp">Temperture</h6>
               <h6 class="humid">humidity</h6>
@@ -84,7 +91,7 @@
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
   var APIkey = "0b7e120ecb6a0831c512bd4a23e5b882";
 
   function searchWeather(town) {
