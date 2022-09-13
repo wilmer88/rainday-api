@@ -14,20 +14,14 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
-
-      console.log(response);
-
-      
-        
-
-      
-
+      setToLocalStorage(town)
       $(".myCity").text("Weather In:" + response.name);
       $(".temp").text("Temperture:" + response.main.temp);
       $(".humid").text("Humidity:" + response.main.humidity);
       $(".wind").text("Wind Speed:" + response.main.temp);
       $(".uv").text("UV Index:");
     });
+   
   }
   
 
@@ -36,63 +30,27 @@ $(document).ready(function () {
 
     e.preventDefault;
     var searchTown = $("#searchCity").val();
-    var pastCitys = []
     
-   
-  //  if(localStorage.getItem("history") === null){
-  //   localStorage.setItem("history",JSON.stringify([searchTown]))
-    
-  //  }else{
-  //   localStorage.push()
-  //  }
-      
-     
-   function setToLocalStorage(text){
-    // if(localStorage.getItem("history") === null)
-  //  var localStorageHistory = localStorage.getItem("history");
-  //  console.log(localStorageHistory)
-    
-  //   localStorageHistory.push(text)
-  //   console.log(localStorageHistory)
-    
-    // localStorage.setItem("history",JSON.stringify(pastCitys))
-  if(localStorage.getItem("history") === null){
-    localStorage.setItem("history","[]")
-
-
-  }else{
-    pastCitys = JSON.parse(localStorage.getItem("history"));
-    console.log(pastCitys);
-    pastCitys.push(text);
-    console.log(pastCitys);
-    localStorage.setItem("history",JSON.stringify(pastCitys));
-    console.log(pastCitys);
-
-  
-
-  }
-
- 
-  
-
-   }
-   
-    
-    // console.log(searchTown);
-   
     searchWeather(searchTown);
-    setToLocalStorage(searchTown)
-    
     makeHistoryListBtn(searchTown);
-    
-
-    
-    
-   
+  
   });
 });
 
+function setToLocalStorage(text){
+ 
+if(localStorage.getItem("history") === null){
+  localStorage.setItem("history","[]")
+}
+  pastCitys = JSON.parse(localStorage.getItem("history"));
 
+  pastCitys.push(text);
+ 
+  localStorage.setItem("history",JSON.stringify(pastCitys));
+  console.log(pastCitys);
+}
+
+ 
 
 function makeHistoryListBtn(text){
   
