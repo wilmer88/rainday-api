@@ -1,6 +1,17 @@
 $(document).ready(function () {
-  
+  $("#ulSearches").on("click", "button", function() {
+    $("#ulSearches").empty()
+    console.log("im working")
+    searchWeather($(this).text());
+    getForcast($(this).text());
+    checkAndShowsLocalStorageCitys();
+  });
+
   var ulElement = document.querySelector("#ulSearches");
+  
+
+
+
 function setToLocalStorage(text){
   if(localStorage.getItem("history") === null){
     localStorage.setItem("history","[]");
@@ -10,16 +21,21 @@ function setToLocalStorage(text){
     $("#searchCity").val("");
     checkAndShowsLocalStorageCitys();
   }else{
-    let subStorageArr2 = JSON.parse(localStorage.getItem("history"));
-    subStorageArr2.push(text);
-    localStorage.setItem("history",JSON.stringify(subStorageArr2)); 
-    $("#searchCity").val("");
-    checkAndShowsLocalStorageCitys()
+   
+      $("#ulSearches").empty()
+      let subStorageArr2 = JSON.parse(localStorage.getItem("history"));
+      subStorageArr2.push(text);
+      localStorage.setItem("history",JSON.stringify(subStorageArr2)); 
+      $("#searchCity").val("");
+      checkAndShowsLocalStorageCitys()
+
+    
+   
   };
   };
 
 function checkAndShowsLocalStorageCitys(){
-  var checkStorage = JSON.parse(localStorage.getItem("history"))
+  var checkStorage = JSON.parse(localStorage.getItem("history"));
   if(checkStorage){
     $("#ulSearches").empty()
     for(let i = 0; i < checkStorage.length; i ++){
@@ -37,7 +53,55 @@ function checkAndShowsLocalStorageCitys(){
   
   $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
   var APIkey = "3c5008effeceb13ebf5b25bfb8e0b11a";
+
+  function getForcast(town){
+    var queryURL =
+    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    town +
+    "&appid=" +
+    APIkey +
+    "&units=imperial";
+    
+  $.ajax({
+    url: queryURL,
+    method: "GET",
+  }).then(function (response) {
+    console.log(response);
+    $("#forcast-row").empty();
+    for (var i = 0; i < response.list.length; i++) {
+      // only look at forecasts around 3:00pm
+      if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
+        var col = $("<div style='margin-bottom: 10px;'>").addClass("col-md-4");
+        
+        var card = $("<div>").addClass("card bg-primary text-white");
+        
+        var body = $("<div>").addClass("card-body p-2");
+
+        var title = $("<h5>").addClass("card-title").text(new Date(response.list[i].dt_txt).toLocaleDateString());
+
+        var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+
+        var p1 = $("<p>").addClass("card-text").text("Temp: " + response.list[i].main.temp_max + " °F");
+        var p2 = $("<p>").addClass("card-text").text("Humidity: " + response.list[i].main.humidity + "%");
+
+        // merge together and put on page
+        col.append(card.append(body.append(title, img, p1, p2)));
+        
+        $("#forcast-row").append(col);
+     
+        
+      }
+    }
+
+   
+    
+  });
+ 
+
+  
+  }
   function searchWeather(town) {
+   
     var queryURL =
       "https://api.openweathermap.org/data/2.5/weather?q=" +
       town +
@@ -48,11 +112,19 @@ function checkAndShowsLocalStorageCitys(){
       url: queryURL,
       method: "GET",
     }).then(function (response) {
-      setToLocalStorage(town)
-      $(".myCity").text("Weather In:" + response.name);
-      $(".temp").text("Temperture:" + response.main.temp);
-      $(".humid").text("Humidity:" + response.main.humidity);
-      $(".wind").text("Wind Speed:" + response.main.temp);
+     
+      // if (pastHistory.indexOf(town) === -1) {
+       
+
+      // }
+     
+      
+      var weatherImg = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png" )
+      $(".myCity").text("Weather In: " + response.name);
+      $(".myCity").append(weatherImg);
+      $(".temp").text("Temperture: " + response.main.temp + " °F");
+      $(".humid").text("Humidity: " + response.main.humidity + " %");
+      $(".wind").text("Wind Speed: " + response.main.temp + " MPH");
       $(".uv").text("UV Index:");
     });
   }
@@ -61,6 +133,10 @@ function checkAndShowsLocalStorageCitys(){
     e.preventDefault;
     var searchTown = $("#searchCity").val();
     searchWeather(searchTown); 
+    getForcast(searchTown);
+    setToLocalStorage(searchTown)
+  
+    
   });
 
   checkAndShowsLocalStorageCitys()
