@@ -18,36 +18,24 @@ $(document).ready(function () {
   };
 
   function searchWeather(town) {
-    var queryURL =
-      "http://api.openweathermap.org/data/2.5/weather?q=" +
-      town +
-      "&appid=" +
-      APIkey +
-      "&units=imperial";
+    var queryURL ="http://api.openweathermap.org/data/2.5/weather?q=" + town +"&appid=" + APIkey + "&units=imperial";
     $.ajax({
       url: queryURL,
       method: "GET",
     }).then(function (response) {
-      getUVI(response.coord.lat, response.coord.lon)
-      
+      getUVI(response.coord.lat, response.coord.lon) 
       $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
-      var weatherImg = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png" )
+      var weatherImg = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png" );
       $(".myCity").text("Weather In: " + response.name);
       $(".myCity").append(weatherImg);
       $(".temp").text("Temperture: " + response.main.temp + " °F");
       $(".humid").text("Humidity: " + response.main.humidity + " %");
       $(".wind").text("Wind Speed: " + response.main.temp + " MPH");
-      
     });
   };
 
   function getForcast(town){
-    var queryURL =
-    "http://api.openweathermap.org/data/2.5/forecast?q=" +
-    town +
-    "&appid=" +
-    APIkey +
-    "&units=imperial";
+    var queryURL ="http://api.openweathermap.org/data/2.5/forecast?q=" + town +"&appid=" + APIkey + "&units=imperial";
   $.ajax({
     url: queryURL,
     method: "GET",
