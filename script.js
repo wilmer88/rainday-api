@@ -1,7 +1,6 @@
 $(document).ready(function () {
   $("#ulSearches").on("click", "button", function() {
     $("#ulSearches").empty()
-    console.log("im working")
     searchWeather($(this).text());
     getForcast($(this).text());
     checkAndShowsLocalStorageCitys();
@@ -37,13 +36,12 @@ function checkAndShowsLocalStorageCitys(){
       var pastCityLi = document.createElement("li");
       pastCityLi.setAttribute("data-index",i);
       var button = document.createElement("button");
-     button.textContent = allPastCitys
-      console.log(button )
-      pastCityLi.append(button)
-      ulElement.append(pastCityLi)
-    }
- }
-}
+     button.textContent = allPastCitys;
+      pastCityLi.append(button);
+      ulElement.append(pastCityLi);
+    };
+ };
+};
   
   $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
   var APIkey = "3c5008effeceb13ebf5b25bfb8e0b11a";
@@ -60,7 +58,6 @@ function checkAndShowsLocalStorageCitys(){
     url: queryURL,
     method: "GET",
   }).then(function (response) {
-    console.log(response);
     $("#forcast-row").empty();
     for (var i = 0; i < response.list.length; i++) {
       // only look at forecasts around 3:00pm
@@ -80,18 +77,10 @@ function checkAndShowsLocalStorageCitys(){
 
         col.append(card.append(body.append(title, img, p1, p2)));
         
-        $("#forcast-row").append(col);
-     
-        
+        $("#forcast-row").append(col);   
       }
     }
-
-   
-    
   });
- 
-
-  
   }
   function searchWeather(town) {
    
@@ -123,8 +112,6 @@ function checkAndShowsLocalStorageCitys(){
     searchWeather(searchTown); 
     getForcast(searchTown);
     setToLocalStorage(searchTown)
-  
-    
   });
 
   checkAndShowsLocalStorageCitys()
