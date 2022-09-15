@@ -8,9 +8,6 @@ $(document).ready(function () {
   });
 
   var ulElement = document.querySelector("#ulSearches");
-  
-
-
 
 function setToLocalStorage(text){
   if(localStorage.getItem("history") === null){
@@ -28,9 +25,6 @@ function setToLocalStorage(text){
       localStorage.setItem("history",JSON.stringify(subStorageArr2)); 
       $("#searchCity").val("");
       checkAndShowsLocalStorageCitys()
-
-    
-   
   };
   };
 
@@ -84,7 +78,6 @@ function checkAndShowsLocalStorageCitys(){
         var p1 = $("<p>").addClass("card-text").text("Temp: " + response.list[i].main.temp_max + " °F");
         var p2 = $("<p>").addClass("card-text").text("Humidity: " + response.list[i].main.humidity + "%");
 
-        // merge together and put on page
         col.append(card.append(body.append(title, img, p1, p2)));
         
         $("#forcast-row").append(col);
@@ -112,13 +105,8 @@ function checkAndShowsLocalStorageCitys(){
       url: queryURL,
       method: "GET",
     }).then(function (response) {
-     
-      // if (pastHistory.indexOf(town) === -1) {
-       
+      $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
 
-      // }
-     
-      
       var weatherImg = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png" )
       $(".myCity").text("Weather In: " + response.name);
       $(".myCity").append(weatherImg);
